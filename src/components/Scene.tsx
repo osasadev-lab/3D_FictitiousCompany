@@ -197,6 +197,7 @@ function Hotspot({ section }: { section: ContentSection }) {
 
   return (
     <group position={position}>
+      {/* Enlarged invisible hit target — keeps the visible dot small while widening the tap area */}
       <mesh
         onClick={(e) => {
           e.stopPropagation();
@@ -210,6 +211,10 @@ function Hotspot({ section }: { section: ContentSection }) {
           document.body.style.cursor = "auto";
         }}
       >
+        <sphereGeometry args={[isActive ? 0.18 : 0.15, 16, 16]} />
+        <meshBasicMaterial transparent opacity={0} depthWrite={false} />
+      </mesh>
+      <mesh raycast={() => null}>
         <sphereGeometry args={[isActive ? 0.075 : 0.05, 16, 16]} />
         <meshStandardMaterial
           color={section.accentColor}
